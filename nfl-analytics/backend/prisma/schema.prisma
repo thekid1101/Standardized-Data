@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider      = "prisma-client-js" 
+  binaryTargets = ["native", "windows"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// Simplified schema to avoid foreign key constraints issues
+
+model Player {
+  id       String  @id
+  name     String
+  position String?
+  team     String?
+  
+  @@map("players")
+}
+
+model Team {
+  code       String  @id
+  name       String
+  conference String?
+  division   String?
+  
+  @@map("teams")
+}
+
+model Game {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  season    Int
+  week      Int
+  gameDate  DateTime
+  homeTeam  String
+  awayTeam  String
+  homeScore Int?
+  awayScore Int?
+  
+  @@map("games")
+}
+
+model GameStat {
+  id            Int     @id @default(autoincrement())
+  gameKey       String
+  playerId      String
+  team          String
+  position      String?
+  
+  // Pass stats
+  passAttempts  Int?
+  completions   Int?
+  passYards     Int?
+  passTDs       Int?
+  interceptions Int?
+  
+  // Rush stats
+  carries       Int?
+  rushYards     Int?
+  rushTDs       Int?
+  
+  // Receiving stats
+  targets       Int?
+  receptions    Int?
+  receivingYards Int?
+  receivingTDs  Int?
+  
+  @@unique([gameKey, playerId])
+  @@map("game_stats")
+}

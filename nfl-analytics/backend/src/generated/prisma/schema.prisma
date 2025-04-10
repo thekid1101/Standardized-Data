@@ -1,0 +1,183 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider      = "prisma-client-js"
+  output        = "../src/generated/prisma"
+  binaryTargets = ["native", "windows", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Player {
+  id       String    @id
+  name     String
+  position String?
+  dob      DateTime?
+
+  weeklyRosters   WeeklyRoster[]
+  playerGameStats PlayerGameStat[]
+  playPlayers     PlayPlayer[]
+
+  @@map("players")
+}
+
+model Team {
+  code       String  @id
+  name       String?
+  conference String?
+  division   String?
+
+  homeGames       Game[]           @relation("HomeTeam")
+  awayGames       Game[]           @relation("AwayTeam")
+  weeklyRosters   WeeklyRoster[]
+  playerGameStats PlayerGameStat[]
+  offensivePlays  Play[]           @relation("OffensiveTeam")
+  defensivePlays  Play[]           @relation("DefensiveTeam")
+
+  @@map("teams")
+}
+
+model Game {
+  key       String   @id
+  week      Int
+  season    Int
+  gameDate  DateTime
+  homeTeam  String
+  awayTeam  String
+  homeScore Int?
+  awayScore Int?
+  stadium   String?
+  surface   String?
+  weather   String?
+
+  homeTeamRel Team @relation("HomeTeam", fields: [homeTeam], references: [code])
+  awayTeamRel Team @relation("AwayTeam", fields: [awayTeam], references: [code])
+
+  plays           Play[]
+  playerGameStats PlayerGameStat[]
+
+  @@map("games")
+}
+
+model WeeklyRoster {
+  id           Int     @id @default(autoincrement())
+  playerId     String
+  week         Int
+  season       Int
+  team         String
+  jerseyNumber Int?
+  position     String?
+
+  player  Player @relation(fields: [playerId], references: [id])
+  teamRel Team   @relation(fields: [team], references: [code])
+
+  @@unique([playerId, week, season, team])
+  @@map("weekly_rosters")
+}
+
+model PlayerGameStat {
+  id            Int     @id @default(autoincrement())
+  playerId      String
+  gameKey       String
+  team          String
+  position      String?
+  snaps         Int?
+  snapShare     Float?
+  fantasyPoints Float?
+
+  // Pass stats
+  passAttempts  Int?
+  completions   Int?
+  passYards     Int?
+  passTDs       Int?
+  interceptions Int?
+
+  // Rush stats
+  carries   Int?
+  rushYards Int?
+  rushTDs   Int?
+
+  // Receiving stats
+  targets        Int?
+  receptions     Int?
+  receivingYards Int?
+  receivingTDs   Int?
+  airYards       Int?
+
+  // Additional stats
+  scrimmageYards Int?
+  totalTDs       Int?
+  totalTouches   Int?
+  opportunities  Int?
+  evadedTackles  Int?
+  yardsCreated   Int?
+
+  // Efficiency metrics
+  yardsPerCarry     Float?
+  yardsPerTarget    Float?
+  yardsPerReception Float?
+
+  player  Player @relation(fields: [playerId], references: [id])
+  game    Game   @relation(fields: [gameKey], references: [key])
+  teamRel Team   @relation(fields: [team], references: [code])
+
+  @@unique([playerId, gameKey])
+  @@map("player_game_stats")
+}
+
+model Play {
+  id        String  @id
+  gameKey   String
+  week      Int
+  quarter   Int?
+  minutes   Int?
+  seconds   Int?
+  down      Int?
+  yardsToGo Int?
+  offTeam   String
+  defTeam   String
+  playType  String?
+
+  // Play details
+  yardsGained Int?
+  isFirstDown Boolean?
+  redZone     Boolean?
+  passPlay    Boolean?
+  runPlay     Boolean?
+  touchdown   Boolean?
+  turnover    Boolean?
+
+  // Relationships
+  game        Game         @relation(fields: [gameKey], references: [key])
+  offTeamRel  Team         @relation("OffensiveTeam", fields: [offTeam], references: [code])
+  defTeamRel  Team         @relation("DefensiveTeam", fields: [defTeam], references: [code])
+  playPlayers PlayPlayer[]
+
+  @@map("plays")
+}
+
+model PlayPlayer {
+  id       Int    @id @default(autoincrement())
+  playId   String
+  playerId String
+  role     String // qb, rb1, wr1, etc.
+
+  // Role-specific stats
+  airYards    Int?
+  yardsGained Int?
+  targeted    Boolean?
+  completed   Boolean?
+  routeType   String?
+  coverage    String?
+  cushion     Float?
+
+  play   Play   @relation(fields: [playId], references: [id])
+  player Player @relation(fields: [playerId], references: [id])
+
+  @@unique([playId, playerId, role])
+  @@map("play_players")
+}

@@ -1,0 +1,241 @@
+PlayerProfiler Data Dictionary
+Advanced Play-By-Play
+game_key - unique identifier for each game, combining game date and matchup
+week - week of NFL season
+off_team - team currently on offense
+def_team - team currently on defense
+quarter - quarter of the game
+minutes - minutes remaining in quarter
+seconds - seconds remaining in that minute of the quarter
+nfl_play_id - the NFL’s play identifier
+drive - overall drive number of the game
+scoring_drive - 1/0 if it’s a scoring drive
+drive_outcome - end result of the current drive
+team_play_charted_order - denotes order of plays requiring game charting
+type - type of play… pass, run kickoff, etc.
+down - 1 denotes 1st, 2 denotes 2nd...
+yards_to_go - yards from next 1st down marker or yards from scoring
+yards_from_scoring - yards away from scoring
+yards_gained - yards gained on the current play
+first_down - 1/0 if first down was gained on that play
+red_zone - 1/0 if play occurred within 20 yards of scoring range
+runner - player id of the main running player for the current play
+targeted_player - player id of the targeted receiver on the play
+targeted_cb - player id of the cornerback covering the targeted receiver for the current play
+qb - player id for the quarterback on the play
+rb1 - player id for the main running back on the play
+defender_rb1 - player id for the defender covering the RB1 on the play
+rb2 - player id for the 2nd RB lined up for a play
+defender_rb2 - player id for the defender of the RB2
+rb3 - player id for the RB3 on the current play
+defender_rb3 - player id for defender of the RB3
+wr1 - player id for the WR1 on the play
+defender_wr1 - player id for the defender guarding the WR1 on that play
+cushion_wr1 - yards of space between wr1 and defender_wr1
+coverage_wr1 - man/zone coverage against the WR1 on the play
+wr2 - player id for the WR2 on the play
+defender_wr2 - player id for defender of the WR2
+cushion_wr2 - yards of space between wr2 and defender_wr2
+coverage_wr2 - man/zone coverage against the WR2 on the play
+slot1 - player id for the main slot receiver
+defender_slot1 - player id for the defender of Slot1
+cushion_slot1 - yards of space between slot1 and defender_slot1
+coverage_slot1 - man/zone coverage against the slot1 on the play
+slot2 - player id for the secondary slot receiver
+defender_slot2 - player id for the defender of Slot2
+cushion_slot2 - yards of space between slot1 and defender_slot1
+coverage_slot2 - man/zone coverage against the Slot2 on the play
+wr5 - player id of the WR5 on the play
+defender_wr5 - player id for the defender of the WR5
+cushion_wr5 - yards of space between wr5 and defender_wr5
+coverage_wr5 - man/zone coverage against the WR5 on the play
+te1- player id for the TE1 on the play
+defender_te1 - player id for the defender of TE1
+te2 - player id for the TE2 on the play
+defender_te2 - player id for the defender of the TE2
+te3 - player id for the defender of the TE3
+defender_te3 - player id for the defender of the TE3
+personnel - for current play, # of RBs on the field, underscore, # of WRs on the field
+total_rbs - # of RBs on the field for that play
+total_wrs - # of WRs on the field for current play
+total_tes - # of TEs on the field for current play
+wr1_route_run - 1/0 if WR1 ran a route on the current play
+wr2_route_run - 1/0 if WR1 ran a route on the current play
+wr5_route_run - 1/0 if WR1 ran a route on the current play
+slot1_route_run - 1/0 if WR1 ran a route on the current play
+slot2_route_run - 1/0 if WR1 ran a route on the current play
+rb1_route_run - 1/0 if WR1 ran a route on the current play
+rb2_route_run - 1/0 if WR1 ran a route on the current play
+rb3_route_run - 1/0 if WR1 ran a route on the current play
+te1_route_run - 1/0 if WR1 ran a route on the current play
+te2_route_run - 1/0 if WR1 ran a route on the current play
+te3_route_run - 1/0 if WR1 ran a route on the current play
+neutral_game_script - 1/0 denotes if game script is neutral. Qualifications are: 1st quarter game
+within 14 points, 2nd quarter game with 2+ minutes left in the quarter and 14 points, 3rd quarter
+game within 10 points, or 4th quarter within 10 points and 10+ minutes remaining or 4th quarter
+within 7 points and 5-10 minutes left in the game.
+shotgun - 1/0 if current play was in shotgun formation
+play_action - 1/0 if current play involved play action
+hurry_up - 1/0 if current play was hurry-up offense
+defenders_in_box - width of the box is distance between the outer shoulder of right and the
+outer shoulder of the left tackle. The depth of the box is 6 yards from the line of scrimmage.
+completion - 1/0 if pass was completed
+catchable_pass - 1/0 if pass was deemed catchable by game charters
+air_yards - distance downfield the ball travels on a pass play
+contested_target - 1/0 if target is contested
+target_accuracy - Scored 1-10 by game charters based on accuracy of the throw. Higher values
+here indicate more accurate throws
+yards_of_separation - yards of separation between the receiver and defender at moment the
+ball arrives
+money_throw - a pass requiring exceptional skill or athleticism as well as critical throws
+executed in clutch moments. 1/0 determined by game charters.
+danger_play - any play in which the quarterback lacked awareness or took an unnecessary risk
+that could have resulted in a turnover. 1/0 determined by game charters.
+interceptable_pass - pass plays that were interception-worthy. 1/0 determined by game
+charters.
+interception - 1/0 if interception on current play
+hurry - 1/0 if offensive line does not allow quarterback 4 or more seconds to throw
+pressure - 1/0 if the quarterback’s pass attempt came while under pressure. Determined by
+game charters.
+drop - 1/0 if receiver dropped the pass
+end_zone_target - 1/0 if receiver is targeted in end zone
+route_wins - 1/0 if game charters determine receiver wins the route against the defender by
+catching a pass or creating 2 or more yards of separation. Determined by game charters.
+burn - 1/0 if a receiver gets 3 yards deeper than his assigned defender at any point on a vertical
+or downfield route. Determined by game charters.
+pass_breakup - 1/0 if pass is broken up by defender
+voided_pass - 1/0 if penalty on play or any other reason a pass play doesn’t stand
+sack - 1/0 if sack occurs on play
+rb_formation - type of running back formation on current play
+yards_created - yards beyond the amount blocked, yards after 1st evaded tackle
+yards_blocked - yards blocked by the offensive line on run plays
+evaded_tackles - # of evaded tackles by primary skill player on current play
+big_hit - 1/0 if big hit occurred, denoted by game charters
+td - 1/0 if touchdown occurred on play
+pass_td - 1/0 if passing touchdown occurred on the play
+rush_td - 1/0 if rushing touchdown occurred on the play
+return_td - 1/0 if a return touchdown occurred on the play
+fg_result - result of field goal
+pat_result - result of the extra point
+fwo_pt_result - result of 2 point conversion
+safety - 1/0 if safety occurred on play
+fumble - 1/0 if fumble occurred on play
+fumble_lost - 1/0 if fumble lost on play
+penalty - 1/0 if penalty on play
+penalty_yards - yards of penalty if enforced
+timeout - 1/0 if timeout called on play
+timeout_team - team that called timeout
+punt_blocked - 1/0 if punt blocked on play
+qb_kneeldown - 1/0 if quarterback kneeled down on play
+onside_attempt - 1/0 if onside kick attempted on play
+onside_recovery - 1/0 if onside kick recovered by kicking team
+pass - 1/0 if pass play
+run - 1/0 if run play
+game_date - date of game
+game - away team, underscore, home team
+home_team - home team
+away_team - away team
+off_pts_scored - points scored by offense on current play
+def_pts_scored - points scored by defense on current play
+away_score - away team score at that moment in the game
+home_score - home team score at that moment in the game
+final_away_score - final score of away team
+final_home_score - final score of home team
+day - day of week game was played
+dome - 1/0 if stadium has a dome
+surface - type of playing surface
+synthetic - 1/0 if playing surface is synthetic
+sunday_night - 1/0 if game is Sunday Night Football
+Advanced Game Log
+player_id - unique identifier for each player
+name - full name for each player
+position - player’s position
+season - NFL season
+week - week of NFL season
+team - player’s team that week
+opponent - opposing team that week
+snaps - snaps taken out on the field
+pass_attempts - pass attempts
+completions - pass completions
+pass_yards - passing yards
+air_yards_passing - air yards passing
+pass_touchdowns - passing touchdowns
+interceptions - interceptions
+carries - rush attempts
+rush_yards - rushing yards
+rush_touchdowns - rushing touchdowns
+targets - receiving targets
+receptions- receptions
+receiving_yards - receiving yards
+air_yards - distance downfield the ball travels on combined targets
+receiving_touchdowns - receiving touchdowns
+scrimmage_yards - totaled receiving yards and rushing yards
+total_touchdowns - combined rushing and receiving touchdowns
+total_touches - combined receptions and carries
+opportunities - combined targets and carries
+evaded_tackles - total tackles evaded according to game charters
+yards_created - yards beyond those blocked by the offensive line
+snap_share - percent of total offensive snaps player participated in
+pass_yards_per_attempt - passing yards per pass attempt
+yards_per_carry - rushing yards per carry
+yards_per_target - receiving yards per target
+yards_per_reception - receiving yards per catch
+yards_per_touch - scrimmage yards divided by total touches
+yards_per_opportunity - scrimmage yards divided by total opportunities
+opportunity_share - percent of total opportunities going this player’s way
+target_share - percent of the team’s targets going this player’s way
+air_yards_share - percent of team’s total air yards traveling this player’s way
+fantasy_points - fantasy points (PPR)
+fantasy_points_per_target - fantasy points divided by targets
+fantasy_points_per_opportunity - fantasy points divided by opportunities
+juke_rate - evaded tackles per touch
+hog_rate - number of targets per snap
+deep_ball_pass_attempts - throws traveling 20 or more air yards
+deep_ball_pass_completions - completed throws traveling 20 or more air yards
+deep_targets - targets traveling 20 or more air yards
+contested_targets - contested targets
+contested_catches - contested catches
+red_zone_pass_attempts - pass attempts within 20 yards of scoring
+red_zone_carries - rush attempts within 20 yards of scoring
+red_zone_targets - targets within 20 yards of scoring
+red_zone_receptions - receptions within 20 yards of scoring
+red_zone_opportunities - opportunities within 20 yards of scoring
+red_zone_touches - touches within 20 yards of scoring
+end_zone_targets - targets where the ball lands in the end zone
+red_zone_completions - completions within 20 yards of scoring
+pass_attempts_inside_5 - pass attempts within 5 yards of scoring
+pass_attempts_inside_10 - pass attempts within 10 yards of scoring
+carries_inside_5 - rush attempts within 5 yards of scoring
+carries_inside_10 - rush attempts within 10 yards of scoring
+targets_inside_5 - targets within 5 yards of scoring
+targets_inside_10 - targets within 10 yards of scoring
+routes_run routes run
+man_coverage_routes - routes run in man coverage
+man_coverage_targets - targets while in man coverage
+zone_coverage_routes - routes run in zone coverage
+zone_coverage_targets - targets while in zone coverage
+routes_won - routes won
+routes_won_vs_man - routes won against man coverage
+routes_won_vs_zone - routes won against zone coverage
+average_cushion - average cushion on all routes
+shotgun_snaps - snaps taken in shotgun formation
+play_action_snaps - snaps taken with play action
+hurries - total hurries
+hurry_up_snaps - snaps taken in the hurry-up offense
+light_front_carries - rush attempts with 6 or fewer men in the box
+heavy_front_carries - rush attempts with 8 or more men in the box
+yards_blocked - total yards blocked by the offensive line
+danger_plays - total danger throws
+drops - total drops
+burned_cb - total times burning the defender in coverage
+interceptable_passes - interception-worthy passes thrown
+big_hits_taken - big hits taken
+sacks_taken - sacks taken
+shotgun_carries - rush attempts out of shotgun formation
+shotgun_targets - targets out of shotgun formation
+first_downs_rushing - first downs rushing
+first_downs_receiving - first downs receiving
+first_downs_passing - first downs passing
+three_or_greater_separation_yards_at_target - anytime the receiver has at least 3 yards of
+separation from their defender when the pass arrives
+plays_5_or_greater_yards_created - plays with 5 or more yards created
